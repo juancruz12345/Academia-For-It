@@ -1,21 +1,25 @@
-type Add = (numbers: string | number[]) => number
+type Add = (numbers: string) => number
 
-export const add: Add = (numbers: string | number[]): number => {
+export const add: Add = (numbers: string): number => {
 
-    const roundToOneDecimal = (num: number) => Number(num.toFixed(1))
-    if (Array.isArray(numbers)) {
+   if (!numbers) return 0
 
-        const result = numbers.reduce((acc, curr) => acc + curr, 0)
-        return roundToOneDecimal(result)
+  let delimiters = /,|\n/
+  let numberString = numbers
+
+  if (numbers.startsWith("//")) {
+    const match = numbers.match(/^\/\/(.+)\n(.*)/)
+    if (match) {
+      const [, delimiter, rest] = match
+      delimiters = new RegExp(delimiter)
+      numberString = rest
     }
+  }
 
-    if (typeof numbers === "string") {
-        const nums = numbers.split(',').map(Number)
-        return nums.reduce((acc, curr) => acc + curr, 0)
-    }
-
-    return 0
+  const tokens = numberString.split(delimiters)
+  const nums = tokens.map(Number)
+    
+      
+  return nums.reduce((sum, n) => sum + n, 0)
+ 
 }
-    
-    
-console.log(add([2.1, 2.1, 2.1]))  
