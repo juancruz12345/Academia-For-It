@@ -30,11 +30,10 @@ export const checkWinner:CheckWinner = (board: string[][]):string => {
             if(qtyXVertical===3) return "X"
             if(qtyOVertical===3) return "O"
         }       
+        if(board[i][i]==='X' && board[i][i]==='X' && board[i][i]==='X')return "X"
+         if(board[i][i]==='O' && board[i][i]==='O' && board[i][i]==='O')return "O"
     }
 
-
-    if(board[0][0]==='X' && board[1][1]==='X' && board[2][2]==='X')return "X"
-    if(board[0][0]==='O' && board[1][1]==='O' && board[2][2]==='O')return "O"
 
     return ''
 }
